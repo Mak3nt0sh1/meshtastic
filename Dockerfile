@@ -2,7 +2,6 @@ FROM debian:bullseye-slim AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
-#fdjfdfdsf
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
