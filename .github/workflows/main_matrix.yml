@@ -169,7 +169,7 @@ jobs:
         id: version
 
       - name: Store binaries as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: firmware-native-${{ steps.version.outputs.version }}.zip
           path: |
@@ -237,7 +237,7 @@ jobs:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           path: ./
 
@@ -252,7 +252,7 @@ jobs:
         run: mv -b -t ./ ./*tbeam-2*/littlefs*.bin ./*tbeam-2*/bleota.bin ./*tbeam-s3*/bleota-s3.bin ./**/firmware*.bin ./*t-echo*/Meshtastic_nRF52_factory_erase_v2.uf2 ./**/firmware-*.uf2 ./**/firmware-*-ota.zip ./**/*.elf ./*native*/*device-*.sh ./*native*/*device-*.bat ./firmware-raspbian-*/release/meshtasticd_linux_aarch64 ./firmware-raspbian-*/bin/config-dist.yaml
 
       - name: Repackage in single firmware zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: firmware-${{ steps.version.outputs.version }}
           path: |
@@ -265,7 +265,7 @@ jobs:
             ./config-dist.yaml
           retention-days: 90
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: firmware-${{ steps.version.outputs.version }}
           path: ./output
@@ -283,7 +283,7 @@ jobs:
         run: zip -j -9 -r ./firmware-${{ steps.version.outputs.version }}.zip ./output
 
       - name: Repackage in single elfs zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: debug-elfs-${{ steps.version.outputs.version }}.zip
           path: ./*.elf
@@ -318,12 +318,12 @@ jobs:
         run: echo "version=$(./bin/buildinfo.py long)" >> $GITHUB_OUTPUT
         id: version
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: firmware-${{ steps.version.outputs.version }}
           path: ./output
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: artifact-deb
 
@@ -338,7 +338,7 @@ jobs:
       - name: Zip firmware
         run: zip -j -9 -r ./firmware-${{ steps.version.outputs.version }}.zip ./output
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: debug-elfs-${{ steps.version.outputs.version }}.zip
           path: ./elfs
